@@ -26,7 +26,7 @@ export const signup = async (req,res) =>{
     try{
       const {fullName,username,password,confirmPassword,gender} = req.body;
       if(password != confirmPassword){
-        return res.status(400).json({error:"Username already exists"})
+        return res.status(400).json({error:"Password and ConfirmPassword don't match"})
       }
       const user = await User.findOne({username});
 
@@ -75,7 +75,7 @@ export const logout = async(req,res) =>{
        res.cookie("jwt","",{maxAge:0});
        res.status(200).json({message:"Logged out successfully"});
     }catch(error){
-      console.log("Error in signup controller",error.message);
+      console.log("Error in logout controller",error.message);
       res.status(500).json({error : "Internal Server Error"});
     }
 }
